@@ -8,6 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
