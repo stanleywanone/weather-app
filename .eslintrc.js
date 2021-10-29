@@ -18,7 +18,19 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  // rules: {
-  //     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-  // },
+  rules: {
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-function-return-type': [
+      'warn',
+      {
+        allowExpressions: true,
+        allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+      },
+    ],
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+  },
 };
