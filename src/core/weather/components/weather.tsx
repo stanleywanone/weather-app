@@ -1,5 +1,17 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useGetWeather } from '../hooks/get';
 
 export const Weather: FC = () => {
-  return <div> Finally you did it !</div>;
+  const { weatherData, getWeather } = useGetWeather();
+
+  useEffect(() => {
+    getWeather('London');
+  }, []);
+
+  return (
+    <div>
+      {' '}
+      In London, the temperature is {weatherData && weatherData?.main?.temp}
+    </div>
+  );
 };
