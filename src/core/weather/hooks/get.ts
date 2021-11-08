@@ -1,4 +1,10 @@
-import { useState, KeyboardEvent, Dispatch, SetStateAction } from 'react';
+import {
+  useState,
+  KeyboardEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import useFetch from 'use-http';
 import { GET_WEATHER_API } from '../api/getWeather';
 
@@ -6,6 +12,7 @@ interface UseGetWeatherReturn {
   getWeather: (e: KeyboardEvent) => Promise<any>;
   setTemFormat: Dispatch<SetStateAction<boolean>>;
   temperature: string;
+  tempColor: string;
 }
 
 export const useGetWeather = (): UseGetWeatherReturn => {
@@ -13,6 +20,7 @@ export const useGetWeather = (): UseGetWeatherReturn => {
 
   const [weatherData, setWeatherData] = useState(null);
   const [tempFormat, setTemFormat] = useState(true);
+  const [tempColor, setTempColor] = useState('');
 
   const getWeather = async (e: KeyboardEvent): Promise<any> => {
     const city = (e.target as HTMLInputElement).value;
@@ -25,8 +33,23 @@ export const useGetWeather = (): UseGetWeatherReturn => {
   };
 
   const fahrenheitToCelcius = (f: number): string => {
-    return (((f - 32) * 6) / 9).toFixed(1).toString();
+    return f ? (((f - 32) * 6) / 9).toFixed(1).toString() : null;
   };
+
+  useEffect(() => {
+    const temp = weatherData?.main.temp;
+    switch (true) {
+      case temp >= 77:
+        setTempColor('linear-gradient(to top, yellow, red)');
+        break;
+      case 50 <= temp:
+        setTempColor('linear-gradient(to top, white, lightskyblue)');
+        break;
+      case temp < 50:
+        setTempColor('linear-gradient(to top, white, silver)');
+        break;
+    }
+  });
 
   return {
     temperature: tempFormat
@@ -34,5 +57,6 @@ export const useGetWeather = (): UseGetWeatherReturn => {
       : fahrenheitToCelcius(weatherData?.main.temp),
     getWeather,
     setTemFormat,
+    tempColor,
   };
 };
