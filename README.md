@@ -18,4 +18,4 @@ Open[http://localhost:8080/] with your browser to see the result.
 
 Notable libraries in use are as folllows:
 
-- `UI Design Library`: [Ant-Desing](https://ant.design/)
+- `UI Design Library`: [Ant-Design](https://ant.design/)
